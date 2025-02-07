@@ -1,0 +1,101 @@
+{
+  "name": "ng-nx-eslint-flatconfig",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "ng-nx-eslint-flatconfig",
+  "sourceRoot": "apps/ng-nx-eslint-flatconfig/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ng-nx-eslint-flatconfig",
+        "index": "apps/ng-nx-eslint-flatconfig/src/index.html",
+        "main": "apps/ng-nx-eslint-flatconfig/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/ng-nx-eslint-flatconfig/tsconfig.app.json",
+        "assets": [
+          "apps/ng-nx-eslint-flatconfig/src/favicon.ico",
+          "apps/ng-nx-eslint-flatconfig/src/assets"
+        ],
+        "styles": ["apps/ng-nx-eslint-flatconfig/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "ng-nx-eslint-flatconfig:build:production"
+        },
+        "development": {
+          "browserTarget": "ng-nx-eslint-flatconfig:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "ng-nx-eslint-flatconfig:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/ng-nx-eslint-flatconfig/**/*.ts",
+          "apps/ng-nx-eslint-flatconfig/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/ng-nx-eslint-flatconfig/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "ng-nx-eslint-flatconfig:build"
+      }
+    }
+  }
+}
